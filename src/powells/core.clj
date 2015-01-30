@@ -4,7 +4,7 @@
             [clj-http.client :as client]
             [clojure.zip :refer [xml-zip]]
             [clojure.data.xml :as xml]
-            [clojure.data.zip.xml :refer [xml1-> text]]
+            [clojure.data.zip.xml :refer [xml1-> xml-> text]]
             [slingshot.slingshot :refer [try+]]))
 
 (def api-key "QqL7sEKSlr3hzRwsC9Hdgg")
@@ -45,6 +45,7 @@
        :image-url (text (xml1-> book :image_url))
        :num-pages (text (xml1-> book :num_pages))
        :avg-rating (text (xml1-> book :average_rating))
+       :authors (map text (xml-> book :authors :author :name))
        :isbn isbn})))
        
 (defn- main []
